@@ -1,7 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { trpc } from '../utils';
 
 const Home: NextPage = () => {
+	const { data, isLoading } = trpc.useQuery(['siemka', { text: 'Vuko' }]);
+
+	if (isLoading) return <div>Ładowanie...</div>;
+
+	if (data) return <div>{data.greeting}</div>;
+
 	return (
 		<div className={''}>
 			<Head>
